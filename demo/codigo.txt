@@ -1,0 +1,132 @@
+//Consultas
+
+//Select Asincrono
+Realm.getDefaultInstance().where(Anunciante.class)
+                .equalTo("id", idAnunciante)
+                .findFirstAsync().addChangeListener(new RealmChangeListener<Anunciante>() {
+            @Override
+            public void onChange(Anunciante anunciante) {
+                idAnuncianteText.setText("Anunciante: " + anunciante.getNomeFantasia());
+            }
+        });
+
+//Insert Asincrono
+
+        addAnuncioBotao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.copyToRealm(new Anuncio(idAnunciante,
+                                tituloText.getText().toString(),
+                                descText.getText().toString(),
+                                Double.valueOf(valorText.getText().toString()),
+                                disponivelRadio.isChecked()));
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        Toast t = Toast.makeText(AddAnuncio.this, "Anuncio criado com sucesso!", Toast.LENGTH_SHORT);
+                        t.show();
+                        finish();
+                    }
+                });
+            }
+        });
+
+//Update asincrono ultilizando um anteriormente persistido
+Realm.getDefaultInstance().executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                            //Como estamos fazendo um UPDATE podemos apenas modificar o usuario existente e será automaticamente refletivo na bd.
+                            Anunciante antigoUsuario = realm.where(Anunciante.class)
+                                    .equalTo("id", idUsuarioAntigo)
+                                    .findFirst();
+
+                            antigoUsuario.setNome(nomeText.getText().toString());
+                            antigoUsuario.setSobrenome(sobrenomeText.getText().toString());
+                            antigoUsuario.setTelefone(telefoneText.getText().toString());
+                            antigoUsuario.setEmail(emailText.getText().toString());
+                            antigoUsuario.setDataInicio(dataInicio);
+                            antigoUsuario.setClassificacao(Double.parseDouble(classificacaoText.getText().toString()));
+                            antigoUsuario.setNomeFantasia(nomeFantasiaText.getText().toString());
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        AddUpdateUsuario.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast t = Toast.makeText(AddUpdateUsuario.this, "Concluido com sucesso!", Toast.LENGTH_SHORT);
+                                t.show();
+                                Intent i = new Intent(AddUpdateUsuario.this, MainActivity.class);
+                                startActivity(i);
+                            }
+                        });
+                    }
+                }, new Realm.Transaction.OnError() {
+                    @Override
+                    public void onError(Throwable error) {
+                        Toast t = Toast.makeText(AddUpdateUsuario.this, "Erro ao executar a transacao: " + error.getMessage(), Toast.LENGTH_SHORT);
+                        t.show();
+                    }
+                });
+
+
+//O realm modifica o codigo binario das entitys em tempo de compilação adicionando metodos que encapsulam as chamadas verdadeiras.
+//Exemplo
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$nome() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.nomeIndex);
+    }
+
+    @Override
+    public void realmSet$nome(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'nome' to null.");
+            }
+            row.getTable().setString(columnInfo.nomeIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            throw new IllegalArgumentException("Trying to set non-nullable field 'nome' to null.");
+        }
+        proxyState.getRow$realm().setString(columnInfo.nomeIndex, value);
+    }
+
+
+
+//Outro exemplo: Armazenando indices e nomes das colunas
+        static final class AnuncianteColumnInfo extends ColumnInfo {
+        long idIndex;
+        long nomeIndex;
+        long sobrenomeIndex;
+        long telefoneIndex;
+        long emailIndex;
+        long dataInicioIndex;
+        long classificacaoIndex;
+        long nomeFantasiaIndex;
+
+        AnuncianteColumnInfo(OsSchemaInfo schemaInfo) {
+            super(8);
+            OsObjectSchemaInfo objectSchemaInfo = schemaInfo.getObjectSchemaInfo("Anunciante");
+            this.idIndex = addColumnDetails("id", objectSchemaInfo);
+            this.nomeIndex = addColumnDetails("nome", objectSchemaInfo);
+            this.sobrenomeIndex = addColumnDetails("sobrenome", objectSchemaInfo);
+            this.telefoneIndex = addColumnDetails("telefone", objectSchemaInfo);
+            this.emailIndex = addColumnDetails("email", objectSchemaInfo);
+            this.dataInicioIndex = addColumnDetails("dataInicio", objectSchemaInfo);
+            this.classificacaoIndex = addColumnDetails("classificacao", objectSchemaInfo);
+            this.nomeFantasiaIndex = addColumnDetails("nomeFantasia", objectSchemaInfo);
+        }
+    }
