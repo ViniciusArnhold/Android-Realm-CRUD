@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="30dp">
+
+    <EditText
+        android:id="@+id/edit_text_anunciante_anuncio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="@string/add_nome_anunciante_anuncio"
+        android:padding="@dimen/view_padding" />
+
+    <EditText
+        android:id="@+id/edit_text_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_titulo"
+        android:padding="@dimen/view_padding"
+        android:textSize="@dimen/add_edit_textsize" />
+
+    <EditText
+        android:id="@+id/edit_text_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_desc"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/edit_text_valor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_valor"
+        android:inputType="numberDecimal" />
+
+    <CheckBox
+        android:id="@+id/edit_radio_disponivel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:hint="@string/add_disponivel" />
+
+
+    <Button
+        android:id="@+id/button_add_update_anuncio"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/button_padding"
+        android:text="@string/add_anuncio" />
+
+
+</LinearLayout>

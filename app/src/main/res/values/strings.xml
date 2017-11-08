@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Controle de Usuarios</string>
+    <string name="choose_menu">Escolha uma opção</string>
+
+    <string name="new_employee">Novo Usuario</string>
+    <string name="view_all_employees">Todos os Usuarios</string>
+    <string name="remove_usuario">Remover Usuario</string>
+    <string name="update_usuario">Atualizar Usuario</string>
+    <string name="add_usuario">Adicionar Usuario</string>
+
+    <string name="tipo_de_usuario">Tipo</string>
+
+    <string name="tipo_usuario">Usuario</string>
+    <string name="tipo_anunciante">Anunciante</string>
+
+    <string name="add_last_name">Sobrenome</string>
+    <string name="add_first_name">Nome</string>
+    <string name="data_inicio">Data Inicio (DD/MM/YYYY)</string>
+    <string name="add_telefone">Telefone</string>
+
+    <string name="editar_usuario_id">ID:</string>
+    <string name="settings">Opcoes</string>
+    <string name="add_classificacao">Classificacao</string>
+    <string name="add_nome_fantasia">Nome Fantasia</string>
+    <string name="add_anuncio">Adicionar Anuncio</string>
+    <string name="add_email">Email</string>
+    <string name="add_nome_anunciante_anuncio">ID Anunciante: </string>
+    <string name="add_titulo">Titulo</string>
+    <string name="add_desc">Descrição</string>
+    <string name="add_valor">Valor</string>
+    <string name="add_disponivel">Disponivel</string>
+    <string name="date_picker_title">Escolha a Data</string>
+</resources>
